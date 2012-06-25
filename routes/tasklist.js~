@@ -1,0 +1,10 @@
+var mongoose = require('mongoose')
+  , task = require('../models/task.js');
+
+
+module.exports = TaskList;
+
+
+function TaskList(connection) {
+  mongoose.connect(connection);
+}

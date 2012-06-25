@@ -1,0 +1,37 @@
+var mongoose = require('mongoose')
+  , link = require('../models/link.js');
+
+module.exports = ListaLink;
+
+function ListaLink(connection) 
+{
+  mongoose.connect(connection);
+}
+
+ListaLink.prototype = 
+{
+  arataLink: function(req, res) 
+  {
+    link.find( 
+    function gasitLink(err, items) 
+    {
+      res.render('index',{title: 'Lista Link-uri ', linkuri: items})
+    });
+  },
+
+  adaugaLink: function(req,res) 
+  {
+    var item = req.body.item;
+    nouLInk = new link();
+    nouLInk.itemTitlu = item.titlu
+    nouLInk.itemLink = item.link;
+    nouLInk.save(function salvatLink(err)
+    {
+      if(err) 
+      {
+        throw err;
+      }
+    });
+    res.redirect('home');
+  }
+}
